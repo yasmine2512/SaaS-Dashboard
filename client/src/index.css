@@ -1,7 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -58,7 +55,7 @@ body {
   margin: 0;
 }
 
-#root {
+/* #root {
   width: 1126px;
   max-width: 100%;
   margin: 0 auto;
@@ -68,9 +65,9 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-}
+} */
 
-h1,
+
 h2 {
   font-family: var(--heading);
   font-weight: 500;
@@ -78,7 +75,7 @@ h2 {
 }
 
 h1 {
-  font-size: 56px;
+  font-size: 50px;
   letter-spacing: -1.68px;
   margin: 32px 0;
   @media (max-width: 1024px) {
