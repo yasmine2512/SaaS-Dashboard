@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, Package, ShoppingCart, CreditCard, Settings, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingCart, CreditCard, Settings,Users, LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../lib/utils";
 
@@ -7,8 +7,9 @@ const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, to: "/dashboard" },
   { label: "Products", icon: Package, to: "/products" },
   { label: "Orders", icon: ShoppingCart, to: "/orders" },
+  {label: "Users", icon: Users, to: "/users"},
   { label: "Subscriptions", icon: CreditCard, to: "/subscriptions" },
-  { label: "Settings", icon: Settings, to: "/settings" },
+  { label: "Settings", icon: Settings, to: "/settings"},
 ];
 
 export default function DashboardLayout({ children }) {

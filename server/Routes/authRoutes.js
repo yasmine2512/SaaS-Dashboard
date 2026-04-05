@@ -73,8 +73,9 @@ res.status(200).json({ ...other, token });
    * @access private
    */  
 router.get("/:id/all-users",verifyTokenAndAdmin,asyncHandler(async(req,res)=>{
-const all_users = await User.find();
-res.json({users : all_users});
+const all_users = await User.find(); //pagination
+const count = await User.countDocuments()
+res.json({users : all_users });
 }))
 
 /** 

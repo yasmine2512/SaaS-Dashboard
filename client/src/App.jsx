@@ -14,6 +14,7 @@ import Products from "./Pages/ProductsAdmin"
 import Register from "./Pages/Register"
 import Settings from "./Pages/Settings"
 import Subscriptions from "./Pages/Subsriptions"
+import Users from "./Pages/UsersList"
 
 
 function App() {
@@ -26,8 +27,7 @@ function App() {
 {/* <Route path="/about" element={<About/>} /> */}
 {/* <Route path="/contact" element={<Contact/>} /> */}
 {/* <Route path=":id/users" element={<Users/>} /> */}
-{/* <Route path=":id/users/:id" element={<User/>} /> */}
-{/* <Route path="/user/:id/info" element={<Myinformation/>} /> */}
+<Route path="/users" element={<Users/>} />
 {/* <Route path="/user/:id" element={<User/>} /> */}
 {/* <Route path="/products" element={<Products/>} /> */}
 {/* <Route path="/products/new" element={<ProductForm />} /> */}
