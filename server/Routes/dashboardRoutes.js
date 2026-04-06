@@ -12,28 +12,26 @@ import {
 
 
 /** 
-   * @desc Show new signups
-   * @route /api/dashboard/users
+   * @desc revenu,norders,nproducts,ncustomers,revenu in last 7 months(month),n ordersin week (day),3 best sellers products,stock alert,monthly recurring revenue (MRR),Show new signups
+   * @route  /api/dashboard/:id
    * @method GET
    * @access private
    */  
-  router.get("/users",asyncHandler(async(req,res)=>{
- 
+
+router.get("/:id",verifyTokenAndAdmin,asyncHandler(async(req,res)=>{
+
+
+ //Show new signups
    const last7Days = new Date();
 last7Days.setDate(last7Days.getDate() - 7);
 const newsignups = await User.countDocuments({
   createdAt: { $gte: last7Days }});
-   return res.json({newSignups: newsignups})
+
   }))
 
-
-
-
-
-
-/** 
-   * @desc revenu,norders,nproducts,ncustomers,revenu in last 7 months(month),n ordersin week (day),3 best sellers,stock alert,monthly recurring revenue (MRR)
-   * @route  /api/dashboard/orders
+  /** 
+   * @desc active subscriptions,monthly recuring,churn rate,avrg revenu user,top subscribers,plan distrbution
+   * @route  /api/dashboard/:id
    * @method GET
    * @access private
-   */  
+   */ 

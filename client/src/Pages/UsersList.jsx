@@ -44,11 +44,11 @@ export default function Orders() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border bg-muted/50">
-                  <th className="text-left p-4 font-medium text-muted-foreground">Users</th>
-                  <th className="text-left p-4 font-medium text-muted-foreground">CreatedAt</th>
-                  <th className="text-left p-4 font-medium text-muted-foreground">Subsecription</th>
-                  <th className="text-left p-4 font-medium text-muted-foreground">Role</th>
-                  <th className="text-left p-4 font-medium text-muted-foreground">Status</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Users</th>
+                  <th className=" p-4 font-medium text-muted-foreground">CreatedAt</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Subsecription</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Role</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Status</th>
                 </tr>
               </thead>
               <tbody>

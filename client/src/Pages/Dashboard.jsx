@@ -15,6 +15,14 @@ const revenueData = [
   { name: "Jul", value: 7200 },
 ];
 
+const newSingups = [
+{id: 1, username: "Olivia Martin",email: "olivia@example.com",role:"user", subscription: "Pro Plan ",status :"active",createdAt: "2026-04-02" },
+  { id:2, username: "Ava Johnson", email: "ava@example.com",role:"user" , subscription: "Starter Kit", status: "inactive",createdAt: "2026-04-03"},
+  { id:3,username: "Michael Chen", email: "michael@example.com", role :"user", subscription: "Enterprise",status: "active", createdAt: "2026-04-02" },
+  { id:4, username: "Sofia Davis", email: "sofia@example.com",role: "admin", subscription: "Pro Plan",status: "inactive" , createdAt: "2026-04-02"},
+  {id:5 ,username: "Lucas Brown", email: "lucas@example.com", role: "user",  subscription: "Starter Kit",status: "active" , createdAt: "2026-04-01"},
+];
+
 const ordersData = [
   { name: "Mon", value: 44 }, { name: "Tue", value: 55 }, { name: "Wed", value: 41 },
   { name: "Thu", value: 67 }, { name: "Fri", value: 52 }, { name: "Sat", value: 38 }, { name: "Sun", value: 29 },
@@ -99,11 +107,11 @@ export default function Dashboard() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="text-left p-4 font-medium text-muted-foreground">Order</th>
-                  <th className="text-left p-4 font-medium text-muted-foreground">Customer</th>
-                  <th className="text-left p-4 font-medium text-muted-foreground">Product</th>
-                  <th className="text-left p-4 font-medium text-muted-foreground">Amount</th>
-                  <th className="text-left p-4 font-medium text-muted-foreground">Status</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Order</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Customer</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Product</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Amount</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -117,6 +125,46 @@ export default function Dashboard() {
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                         o.status === "Completed" ? "bg-success/10 text-success" :
                         o.status === "Processing" ? "bg-primary/10 text-primary" :
+                        "bg-warning/10 text-warning"
+                      }`}>{o.status}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Recent Singups */}
+        <div className="bg-card rounded-xl border border-border shadow-soft">
+          <div className="p-5 border-b border-border">
+            <h3 className="font-heading font-semibold">New Signups</h3>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className=" p-4 font-medium text-muted-foreground">Users</th>
+                  <th className=" p-4 font-medium text-muted-foreground">CreatedAt</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Subsecription</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Role</th>
+                  <th className=" p-4 font-medium text-muted-foreground">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {newSingups.map((o) => (
+                  <tr key={o.id} className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors">
+                    <td className="p-4 font-medium ">
+                       <div>{o.username}</div>
+                      <div className="text-xs text-muted-foreground">{o.email}</div>
+                    </td>
+                    <td className="p-4">{o.createdAt}</td>
+                    <td className="p-4">{o.subscription}</td>
+                    <td className="p-4">{o.role}</td>
+                    <td className="p-4">
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        o.status === "active" ? "bg-success/10 text-success" :
+                        o.status === "inactive" ? "bg-primary/10 text-primary" :
                         "bg-warning/10 text-warning"
                       }`}>{o.status}</span>
                     </td>

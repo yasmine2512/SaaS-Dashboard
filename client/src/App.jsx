@@ -1,8 +1,5 @@
 import './App.css'
-import DashboardLayout from './Layouts/DashboardLayout'
 import { Route,Routes} from 'react-router-dom'
-import Table from './Layouts/Table'
-import Dashboar from './Layouts/Dashboard'
 import Home from "./Pages/Home"
 import Dashboard from "./Pages/Dashboard"
 import Login from "./Pages/Login"
@@ -38,6 +35,7 @@ function App() {
 {/* <Route path="/orders/:id" element={<Order/>} /> */}
 <Route path="/settings" element={<Settings/>} />
 <Route path="/subscriptions" element={<Subscriptions/>} />
+<Route path="*" element={<NotFound />} />
 </Routes>
     </>
   )
