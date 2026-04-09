@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 export function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(" ")[1];
-
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
@@ -22,8 +21,6 @@ export function verifyToken(req, res, next) {
 export function verifyTokenAndAuthorization(req, res, next) {
   verifyToken(req, res, () => {
     if (req.user.id === req.params.id || req.user.isadmin) {
-      console.log(req.user.id);
-      console.log(req.params.id);
       next();
     } else {
       return res.status(403).json({
@@ -36,6 +33,7 @@ export function verifyTokenAndAuthorization(req, res, next) {
 // ================= ADMIN =================
 export function verifyTokenAndAdmin(req, res, next) {
   verifyToken(req, res, () => {
+    console.log(req.user.isadmin);
     if (req.user.isadmin) {
       next();
     } else {

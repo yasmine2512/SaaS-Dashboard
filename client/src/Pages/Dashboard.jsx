@@ -51,8 +51,7 @@ export default function Dashboard() {
       return;
     }
       try {
-        
-
+      
         const res = await axios.get(`${API_URL}/api/users/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         })

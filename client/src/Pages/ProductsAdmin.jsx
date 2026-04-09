@@ -3,7 +3,9 @@ import DashboardLayout from "../components/Layout";
 import { Plus, Search, MoreHorizontal } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/Input";
-import { useState } from "react"
+import { useState ,useEffect} from "react"
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const products = [
   { id: 1, name: "Starter Kit", category: "SaaS", price: "$29/mo", stock: "Unlimited", status: "Active", image: "🚀" },
@@ -16,14 +18,34 @@ const products = [
 import AddProductPopup from "./AddProduct";
 
 export default function Products() {
+  const { id } = useParams()
    const [open, setOpen] = useState(false)
+   const [page, setPage] = useState(null)
+    const API_URL = import.meta.env.VITE_API_URL;
+     useEffect(() => {
+       const fetchProfile = async () => {
+         const token = localStorage.getItem("token");
+           if (!token) {
+         navigate("/login");
+         return;
+       }
+         try {
+           const res = await axios.get(`${API_URL}/api/users/${id}`, {
+             headers: { Authorization: `Bearer ${token}` }
+           })
+           setPage(res.data)
+           console.log(res.data);
+         } catch (err) {
+           console.error("Unauthorized or token invalid", err)
+           navigate("/login");
+         }
+       }
+   
+       fetchProfile()
+     }, [id])
+   
+     if (!page) return <div>Loading...</div>
 
-  const handleSave = (product) => {
-    products.push(product)
-
-    // send to API here
-    // axios.post("/api/products", product)
-  }
   return (
     <DashboardLayout>
       <div className="space-y-6">
@@ -38,7 +60,6 @@ export default function Products() {
           <AddProductPopup
         open={open}
         setOpen={setOpen}
-        onSave={handleSave}
       />
         </div>
 

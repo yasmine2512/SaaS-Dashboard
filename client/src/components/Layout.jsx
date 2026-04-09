@@ -12,7 +12,7 @@ export default function DashboardLayout({ children }) {
 const userId =localStorage.getItem("userId");
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, to: `/${userId}/dashboard` },
-  { label: "Products", icon: Package, to: "/products" },
+  { label: "Products", icon: Package, to: `/${userId}/products`},
   { label: "Orders", icon: ShoppingCart, to: "/orders" },
   {label: "Users", icon: Users, to: "/users"},
   { label: "Subscriptions", icon: CreditCard, to: "/subscriptions" },
