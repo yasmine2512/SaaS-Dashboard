@@ -5,7 +5,8 @@ import {
   verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin
-} from '../JWTauth.js'
+} from '../Middlewares/JWTauth.js'
+import { upload } from "../Middlewares/Multer.js";
 const router = express.Router();
 
 
@@ -27,19 +28,29 @@ router.get("/",asyncHandler(async(req,res)=>{
 
 /** 
    * @desc insert new product
-   * @route /api/auth/:id/new-product
+   * @route /api/products/:id/new-product
    * @method POST
    * @access private
    */ 
-router.post("/:id/new-product",verifyTokenAndAdmin,asyncHandler(async(req,res)=>{
-const {name,desc,price,stock,image} = req.body;
+router.post("/:id/new-product",verifyTokenAndAdmin,upload.single("image"),asyncHandler(async(req,res)=>{
+ 
+const {name,price,desc,category,stock} = req.body;
+let features = []
+    try {
+      features = JSON.parse(req.body.features)
+    } catch (err) {
+      return res.status(400).json({ message: "Features must be JSON array" })
+    }
+const image = req.file.filename;
  if (!name || !desc || !price || !stock) {
     return res.status(400).json({ message: "Missing required fields" });
   }
 const newproduct = new Product({
     name,
-    description : desc,
     price,
+    category,
+    description : desc,
+    features,
     stock,
     image
 })

@@ -10,7 +10,7 @@ import {
   verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin
-} from '../JWTauth.js'
+} from '../Middlewares/JWTauth.js'
 
 
 

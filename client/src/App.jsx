@@ -21,18 +21,14 @@ function App() {
 <Route path="/login" element={<Login />} />
 <Route path="/register" element={<Register/>} />
 <Route path="/" element={<Home/>} />
-{/* <Route path="/about" element={<About/>} /> */}
-{/* <Route path="/contact" element={<Contact/>} /> */}
-{/* <Route path=":id/users" element={<Users/>} /> */}
 <Route path="/users" element={<Users/>} />
-{/* <Route path="/user/:id" element={<User/>} /> */}
-{/* <Route path="/products" element={<Products/>} /> */}
-{/* <Route path="/products/new" element={<ProductForm />} /> */}
+{/* <Route path="/products/new" element={<ProductForm/>} /> */}
 <Route path="/dashboard" element={<Dashboard/>} />
-<Route path="/:id/products/:id" element={<ProductsDetailsAdmin />} />
+<Route path="/products/:id" element={<ProductsDetailsAdmin />} />
+{/* <Route path="/products/:id" element={<ProductsDetailsuser />} /> */}
 <Route path="/products" element={<Products />} />
+<Route path="/products/dashboard" element={<Products />} />
 <Route path="/orders" element={<Orders/>} />
-{/* <Route path="/orders/:id" element={<Order/>} /> */}
 <Route path="/settings" element={<Settings/>} />
 <Route path="/subscriptions" element={<Subscriptions/>} />
 <Route path="*" element={<NotFound />} />

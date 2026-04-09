@@ -3,11 +3,14 @@ const router = express.Router();
 import User from '../Models/User.js'
 import Product from "../Models/Product.js"
 import asyncHandler from "express-async-handler";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
 import {
   verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin
-} from '../JWTauth.js'
+} from '../Middlewares/JWTauth.js'
 
 /** 
    * @desc login
@@ -28,7 +31,7 @@ if (!validPassword) return res.status(401).json("Wrong password");
 const token = jwt.sign(
   { id: user._id, isadmin: user.isadmin },
   process.env.JWT_SECRET_KEY,
-  { expiresIn: "5m" }
+  { expiresIn: "20m" }
 );
 const { password, ...other } = user._doc;
 res.status(200).json({ ...other, token });
@@ -44,7 +47,7 @@ res.status(200).json({ ...other, token });
   router.post("/register", asyncHandler(async (req, res) => {
   console.log(req.body); // debug
 
-  const { name, email, password, subscriptionId } = req.body;
+  const { name, email, password,isadmin, subscriptionId } = req.body;
 
   if (!name || !email || !password) {
     return res.status(400).json({ message: "Missing required fields" });
@@ -59,6 +62,7 @@ res.status(200).json({ ...other, token });
     name,
     email,
     password: hashedPassword,
+    isadmin,
     subscriptionId
   });
 

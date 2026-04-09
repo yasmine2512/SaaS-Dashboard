@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, default: "user" }, // user/admin
+  isadmin: { type: Boolean, default: false}, 
   isActive: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now },
   subscriptionId: { type: String }, // Stripe subscription
