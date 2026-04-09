@@ -6,6 +6,7 @@ import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+
 import {
   verifyToken,
   verifyTokenAndAuthorization,
@@ -20,13 +21,13 @@ import {
    */  
   router.post("/login",asyncHandler(async(req,res)=>{
 const user = await User.findOne({ email: req.body.email });
-if (!user) return res.status(404).json("User not found");
+if (!user) return res.status(404).json({message :"User not found"});
 
 const validPassword = await bcrypt.compare(
   req.body.password,
   user.password
 );
-if (!validPassword) return res.status(401).json("Wrong password");
+if (!validPassword) return res.status(401).json({message :"Wrong password"});
 // create token
 const token = jwt.sign(
   { id: user._id, isadmin: user.isadmin },
@@ -34,7 +35,7 @@ const token = jwt.sign(
   { expiresIn: "20m" }
 );
 const { password, ...other } = user._doc;
-res.status(200).json({ ...other, token });
+res.status(200).json({ user :other, token });
   }))
   
 /** 

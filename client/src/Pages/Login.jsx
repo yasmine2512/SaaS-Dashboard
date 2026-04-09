@@ -4,8 +4,38 @@ import { Mail, Lock, ArrowRight } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/Input";
 import { Label } from "../components/ui/Label";
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
+import { useState } from "react";
 
 export default function Login() {
+ const [error,setError] = useState(null);
+ const navigate = useNavigate()
+ const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  async function handleLogin(){
+    try{
+     const response= await axios.post(`${API_URL}/api/auth/login`,{email,password});
+     const {token,user} = response.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("userId", user._id);
+      console.log(user);
+      navigate(`/${user._id}/dashboard`);
+    }catch(err){
+      if (err.response && err.response.status === 401) {
+    setError("Wrong password!");
+  } else if (err.response && err.response.status === 404) {
+    setError("User not found!");
+  } else {
+    setError("Login failed. Please try again.");
+  }
+  console.log(error);
+    }
+
+  }
+
   return (
     <div className="min-h-screen flex">
       {/* Left Panel */}
@@ -33,24 +63,23 @@ export default function Login() {
               <Label htmlFor="email">Email</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input id="email" type="email" placeholder="you@example.com" className="pl-10" />
+                <Input id="email" type="email" value={email} placeholder="you@example.com" className="pl-10" onChange={e => setEmail(e.target.value)} />
               </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input id="password" type="password" placeholder="••••••••" className="pl-10" />
+                <Input id="password" type="password" value={password} placeholder="••••••••" className="pl-10" onChange={e => setPassword(e.target.value)}/>
               </div>
             </div>
             <div className="flex items-center justify-end">
               <a href="#" className="text-xs text-primary hover:underline">Forgot password?</a>
             </div>
-            <Link to="/dashboard">
-              <Button className="w-full gradient-primary border-0 text-primary-foreground mt-2">
+              <Button className="w-full gradient-primary border-0 text-primary-foreground mt-2" onClick={handleLogin} >
                 Sign In <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
-            </Link>
+  
           </form>
 
           <div className="mt-6 flex items-center gap-3">

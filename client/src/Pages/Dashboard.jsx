@@ -1,6 +1,9 @@
 import DashboardLayout from "../components/Layout";
 import { TrendingUp, TrendingDown, DollarSign, Package, ShoppingCart, Users } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
+import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 const stats = [
   { label: "Revenue", value: "$48,250", change: "+12.5%", up: true, icon: DollarSign },
@@ -37,6 +40,35 @@ const recentOrders = [
 ];
 
 export default function Dashboard() {
+ const { id } = useParams()
+  const [profile, setProfile] = useState(null)
+   const API_URL = import.meta.env.VITE_API_URL;
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
+        if (!token) {
+      navigate("/login");
+      return;
+    }
+      try {
+        
+
+        const res = await axios.get(`${API_URL}/api/users/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        setProfile(res.data)
+        console.log(res.data);
+      } catch (err) {
+        console.error("Unauthorized or token invalid", err)
+        navigate("/login");
+      }
+    }
+
+    fetchProfile()
+  }, [id])
+
+  if (!profile) return <div>Loading...</div>
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
