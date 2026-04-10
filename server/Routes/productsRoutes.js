@@ -15,10 +15,10 @@ const router = express.Router();
    * @desc get all product
    * @route /api/products
    * @method GET
-   * @access public
+   * @access private
    */ 
 
-router.get("/",asyncHandler(async(req,res)=>{
+router.get("/",verifyTokenAndAuthorization,asyncHandler(async(req,res)=>{
     const products =await Product.find();
     const count = await Product.countDocuments(); //for pagination
     return res.json({products});
