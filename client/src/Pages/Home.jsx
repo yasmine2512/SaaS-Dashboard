@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, BarChart3, Shield, Zap, Globe, Users, CreditCard } from "lucide-react";
 import { Button } from "../components/ui/button";
+import bg from "../assets/image1.jpg"
+import vd from "../assets/vid1.mp4"
 
 const features = [
   { icon: BarChart3, title: "Real-time Analytics", desc: "Track every metric that matters with live dashboards." },
@@ -32,7 +34,7 @@ const fade = {
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative w-full">
       {/* Nav */}
       <nav className="border-b border-border/50 backdrop-blur-sm sticky top-0 z-50 bg-background/80">
         <div className="container flex items-center justify-between h-16">
@@ -50,7 +52,11 @@ export default function Index() {
 
       {/* Hero */}
       <section className="gradient-hero text-primary-foreground py-32 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, hsl(243 75% 59% / 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, hsl(172 66% 50% / 0.2) 0%, transparent 50%)" }} />
+        <div className="absolute inset-0 opacity-20" >
+        <video autoPlay loop muted className="absolute inset-0 w-full h-full object-cover -z-20">
+    <source src={vd} />
+  </video>
+        </div>
         <div className="container relative z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-3xl mx-auto text-center">
             <h1 className="font-heading text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
