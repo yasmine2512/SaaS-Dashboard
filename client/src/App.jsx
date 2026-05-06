@@ -12,6 +12,7 @@ import Register from "./Pages/Register"
 import Settings from "./Pages/Settings"
 import Subscriptions from "./Pages/Subsriptions"
 import Users from "./Pages/UsersList"
+import Cart from "./Pages/Cart"
 
 
 function App() {
@@ -32,6 +33,8 @@ function App() {
 <Route path="/settings" element={<Settings/>} />
 <Route path="/subscriptions" element={<Subscriptions/>} />
 <Route path="*" element={<NotFound />} />
+<Route path="/cart" element={<Cart />} />
+
 </Routes>
     </>
   )

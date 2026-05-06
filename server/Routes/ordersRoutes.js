@@ -15,7 +15,7 @@ export default router;
    */  
 router.get("/user/:id",verifyTokenAndAuthorization,asyncHandler(async(req,res)=>{
    const userId = req.params.id;
-const userOrders = await Order.find({_id : userId});
+const userOrders = await Order.find({user : userId});
 return res.json(userOrders);
 
 }))
@@ -26,19 +26,39 @@ return res.json(userOrders);
    * @method POST
    * @access private
    */  
-router.post("/:id",verifyTokenAndAuthorization,asyncHandler(async(req,res)=>{
-   const userId = req.params.id;
-   const {products,totalprice} = req.body;
-   const user = await User.findById(userId);
-   const order = new Order({
-       user,
-       products: products,
-       totalPrice: totalprice,
-   })
-   await order.save();
-   return res.status(201).json({message:"order created"});
+router.post("/:id", verifyTokenAndAuthorization, asyncHandler(async (req, res) => {
+  const { products, totalprice } = req.body;
+  const decremented = [];
 
-}))
+  for (const item of products) {
+    const updated = await Product.findOneAndUpdate(
+      { _id: item.product, stock: { $gte: item.quantity } },
+      { $inc: { stock: -item.quantity } },
+      { new: true }
+    );
+
+    if (!updated) {
+      for (const done of decremented) {
+        await Product.findByIdAndUpdate(done.product, {
+          $inc: { stock: done.quantity },
+        });
+      }
+      return res.status(400).json({ message: `Not enough stock for product ${item.product}` });
+    }
+
+    decremented.push(item);
+  }
+
+  const order = new Order({
+    user: req.params.id,
+    products,
+    totalPrice: totalprice,
+  });
+
+  await order.save();
+  return res.status(201).json({ message: "Order created", order });
+}));
+
  
 /** 
    * @desc check the order
@@ -51,11 +71,9 @@ router.put("/completed/:id",verifyTokenAndAdmin,asyncHandler(async(req,res)=>{
    const order = await Order.findByIdAndUpdate(orderId,{
       $set:{status: "completed",}
    },{new : true});
-   await order.save().then(result =>{
-      res.json({message : "updated to completed"}).catch(err =>{
-         console.log(err);
-      })
-   })
+   await order.save();
+   if (!order) return res.status(404).json({ message: "Order not found" });
+   return res.json({ message: "updated to completed", order });
 }))
  
 /** 
@@ -67,11 +85,9 @@ router.put("/completed/:id",verifyTokenAndAdmin,asyncHandler(async(req,res)=>{
   router.put("/delivered/:id",verifyTokenAndAdmin,asyncHandler(async(req,res)=>{
    const orderId = req.params.id;
    const order = await Order.findByIdAndUpdate(orderId,{
-      $set:{status: "delivred",}
+      $set:{status: "delivered",}
    },{new : true});
-   await order.save().then(result =>{
-      res.json({message : "updated to delivered"});
-   }).catch(err =>{
-         console.log(err);
-      })
+   await order.save();
+   if (!order) return res.status(404).json({ message: "Order not found" });
+   return res.json({ message: "updated to completed", order });
 }))
