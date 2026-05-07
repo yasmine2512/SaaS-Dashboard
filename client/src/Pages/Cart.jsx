@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DashboardLayout from "../components/Layout";
 import {  Menu} from "lucide-react";
+import { useCart } from "../context/CartContext";
 const mockCartItems = [
   {
     _id: "1",
@@ -74,29 +75,38 @@ const SHIPPING_COST = 9.99;
 const TAX_RATE = 0.08;
  
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState(mockCartItems);
+  
+  // const [cartItems, setCartItems] = useState(mockCartItems);
+  const { cartItems, removeItem, updateQuantity } = useCart();
   const [promoCode, setPromoCode] = useState("");
   const [promoApplied, setPromoApplied] = useState(false);
   const [removingId, setRemovingId] = useState(null);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
  
-  const updateQuantity = (itemId, delta) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item._id === itemId
-          ? { ...item, quantity: Math.max(1, Math.min(item.product.stock, item.quantity + delta)) }
-          : item
-      )
-    );
-  };
- 
-  const removeItem = (itemId) => {
+  // const updateQuantity = (itemId, delta) => {
+  //   setCartItems((prev) =>
+  //     prev.map((item) =>
+  //       item._id === itemId
+  //         ? { ...item, quantity: Math.max(1, Math.min(item.product.stock, item.quantity + delta)) }
+  //         : item
+  //     )
+  //   );
+  // };
+ const handleRemove = (itemId) => {
     setRemovingId(itemId);
     setTimeout(() => {
-      setCartItems((prev) => prev.filter((i) => i._id !== itemId));
+      removeItem(itemId);
       setRemovingId(null);
     }, 350);
   };
+
+  // const removeItem = (itemId) => {
+  //   setRemovingId(itemId);
+  //   setTimeout(() => {
+  //     setCartItems((prev) => prev.filter((i) => i._id !== itemId));
+  //     setRemovingId(null);
+  //   }, 350);
+  // };
  
   const applyPromo = () => {
     if (promoCode.trim().toUpperCase() === "SAVE10") setPromoApplied(true);

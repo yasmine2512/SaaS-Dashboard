@@ -31,7 +31,7 @@ const navItems = [
         "fixed lg:sticky top-0 left-0 z-50 h-screen w-64 bg-sidebar text-sidebar-foreground flex flex-col transition-transform duration-300 lg:translate-x-0",
         open ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="p-6 flex items-center justify-between">
+        <div className="p-6 flex items-center justify-between mb-8">
           <Link to="/" className="font-heading text-xl font-bold text-sidebar-primary-foreground">
             <span className="text-sidebar-primary">Apex</span>SaaS
           </Link>

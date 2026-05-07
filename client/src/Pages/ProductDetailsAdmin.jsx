@@ -7,7 +7,7 @@ import { Button } from "../components/ui/button";
 import { useState,useEffect } from "react";
 import axios from "axios"; 
 import { useAuth } from "../context/AuthContext";
-
+import { useCart } from "../context/CartContext";
 const metrics = [
   { label: "Active Users", value: "1,234", icon: Users },
   { label: "Monthly Revenue", value: "$12,450", icon: DollarSign },
@@ -19,6 +19,12 @@ export default function ProductDetail() {
   const isAdmin = user?.isAdmin;
   const {productid} = useParams();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
+   const userId = localStorage.getItem("userId");
+    const handleAddToCart = () => {
+    addToCart(product);
+    navigate(`/${userId}/cart`); // navigate to cart after adding
+  };
      const [product, setProduct] = useState(null)
       const API_URL = import.meta.env.VITE_API_URL;
        useEffect(() => {
@@ -88,7 +94,7 @@ export default function ProductDetail() {
               </ul>
             </div>
 
-            {!isAdmin && <Button  size="sm" className="gradient-primary text-primary-foreground p-4 "><ShoppingBag className="w-3 h-3 mr-1 text-primary-foreground" /> Order</Button>}
+            {!isAdmin && <Button  size="sm" className="gradient-primary text-primary-foreground p-4 "onClick={handleAddToCart} ><ShoppingBag className="w-3 h-3 mr-1 text-primary-foreground" /> Order</Button>}
           </div>
 
       { isAdmin && <div className="space-y-4">

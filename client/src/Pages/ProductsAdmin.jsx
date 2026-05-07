@@ -7,16 +7,6 @@ import { useState ,useEffect} from "react"
 import { useParams ,useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
-
-
-// const products = [
-//   { id: 1, name: "Starter Kit", category: "SaaS", price: "$29/mo", stock: "Unlimited", status: "Active", image: "🚀" },
-//   { id: 2, name: "Pro Plan", category: "SaaS", price: "$49/mo", stock: "Unlimited", status: "Active", image: "⚡" },
-//   { id: 3, name: "Enterprise", category: "SaaS", price: "$199/mo", stock: "Unlimited", status: "Active", image: "🏢" },
-//   { id: 4, name: "API Access", category: "Add-on", price: "$19/mo", stock: "Unlimited", status: "Active", image: "🔗" },
-//   { id: 5, name: "White Label", category: "Add-on", price: "$99/mo", stock: "Limited", status: "Draft", image: "🏷️" },
-//   { id: 6, name: "Custom Integration", category: "Service", price: "$499", stock: "10 slots", status: "Active", image: "🔧" },
-// ];
 import AddProductPopup from "./AddProduct";
 
 export default function Products() {
@@ -86,10 +76,7 @@ export default function Products() {
                 <h3 className="font-heading font-semibold group-hover:text-primary transition-colors">{p.name}</h3>
                 <p className="text-xs text-muted-foreground mb-3">{p.category}</p>
                 <div className="flex items-center justify-between">
-                  <span className="font-heading font-bold text-lg">{p.price}</span>
-                  {/* <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    p.status === "Active" ? "bg-success/10 text-success" : "bg-muted text-muted-foreground"
-                  }`}>{p.status}</span> */}
+                  <span className="font-heading font-bold text-lg">${p.price}</span>
                 </div>
               </div>
             </Link>

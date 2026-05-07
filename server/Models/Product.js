@@ -3,7 +3,7 @@ import { features } from "process";
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: String,
-  price: { type: String, required: true },
+  price: { type: Number, required: true },
   stock: { type: Number, default: 0 },
   category: {type : String},
   features:{type: Array},
