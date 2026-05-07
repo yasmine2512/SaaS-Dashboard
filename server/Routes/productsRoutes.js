@@ -13,12 +13,12 @@ const router = express.Router();
 
 /** 
    * @desc get all product
-   * @route /api/products
+   * @route /api/products/:id
    * @method GET
    * @access public
    */ 
 
-router.get("/",verifyTokenAndAuthorization,asyncHandler(async(req,res)=>{
+router.get("/:id",verifyTokenAndAuthorization,asyncHandler(async(req,res)=>{
     const products =await Product.find();
     // const count = await Product.countDocuments(); //for pagination
     return res.json({products});
@@ -26,11 +26,11 @@ router.get("/",verifyTokenAndAuthorization,asyncHandler(async(req,res)=>{
 
 /** 
    * @desc get product
-   * @route /api/products/:productid
+   * @route /api/products/detail/:productid
    * @method GET
    * @access public
    */ 
-  router.get("/:productid", asyncHandler(async (req, res) => {
+  router.get("/detail/:productid", asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.productid);
   if (!product) return res.status(404).json({ message: "Product not found" });
   return res.json({ product });

@@ -25,7 +25,8 @@ function App() {
 <Route path="/users" element={<Users/>} />
 {/* <Route path="/products/new" element={<ProductForm/>} /> */}
 <Route path="/:id/dashboard" element={<Dashboard/>} />
-<Route path="/products/:id" element={<ProductsDetailsAdmin />} />
+<Route path="/:id/cart" element={<Cart/>} />
+<Route path="/products/:productid" element={<ProductsDetailsAdmin />} />
 {/* <Route path="/products/:id" element={<ProductsDetailsuser />} /> */}
 <Route path="/:id/products" element={<Products />} />
 <Route path="/products/dashboard" element={<Products />} />

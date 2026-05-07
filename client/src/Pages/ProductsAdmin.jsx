@@ -4,8 +4,10 @@ import { Plus, Search, MoreHorizontal } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/Input";
 import { useState ,useEffect} from "react"
-import { useParams } from "react-router-dom";
+import { useParams ,useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+
 
 // const products = [
 //   { id: 1, name: "Starter Kit", category: "SaaS", price: "$29/mo", stock: "Unlimited", status: "Active", image: "🚀" },
@@ -19,9 +21,12 @@ import AddProductPopup from "./AddProduct";
 
 export default function Products() {
   const { id } = useParams()
+  const{user}= useAuth();
+  const isAdmin = user?.isAdmin;
    const [open, setOpen] = useState(false)
    const [products, setProducts] = useState(null)
     const API_URL = import.meta.env.VITE_API_URL;
+    const navigate = useNavigate();
      useEffect(() => {
        const fetchProducts = async () => {
          const token = localStorage.getItem("token");
@@ -30,7 +35,7 @@ export default function Products() {
          return;
        }
          try {
-           const res = await axios.get(`${API_URL}/api/products/`, {
+           const res = await axios.get(`${API_URL}/api/products/${id}`, {
              headers: { Authorization: `Bearer ${token}` }
            })
            setProducts(res.data.products);
@@ -51,15 +56,15 @@ export default function Products() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="font-heading text-2xl font-bold">Products</h1>
-            <p className="text-sm text-muted-foreground">Manage your product catalog</p>
+            {isAdmin &&<p className="text-sm text-muted-foreground">Manage your product catalog</p>}
           </div>
-          <Button className="gradient-primary border-0 text-primary-foreground" onClick={() => setOpen(true)}>
+         {isAdmin && <><Button className="gradient-primary border-0 text-primary-foreground" onClick={() => setOpen(true)}>
             <Plus className="w-4 h-4 mr-2" /> Add Product
           </Button>
           <AddProductPopup
         open={open}
         setOpen={setOpen}
-      />
+      /></>}
         </div>
 
         <div className="flex items-center gap-3">

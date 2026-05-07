@@ -2,20 +2,22 @@ import { Link, useLocation } from "react-router-dom";
 import { LayoutDashboard, Package, ShoppingCart, CreditCard, Settings,Users, LogOut, Menu, X } from "lucide-react";
 import { useState ,useEffect} from "react";
 import { cn } from "../lib/utils";
-
+import { useAuth } from "../context/AuthContext";
 
 export default function DashboardLayout({ children }) {
 
   const location = useLocation();
   const [open, setOpen] = useState(false);
-
+   const {user,logout } = useAuth();
+  const isAdmin = user?.isAdmin;
 const userId =localStorage.getItem("userId");
 const navItems = [
-  { label: "Dashboard", icon: LayoutDashboard, to: `/${userId}/dashboard` },
+  { label: "Dashboard", icon: LayoutDashboard, to: `/${userId}/dashboard`, adminOnly: true  },
   { label: "Products", icon: Package, to: `/${userId}/products`},
-  { label: "Orders", icon: ShoppingCart, to: "/orders" },
-  {label: "Users", icon: Users, to: "/users"},
-  { label: "Subscriptions", icon: CreditCard, to: "/subscriptions" },
+  { label: "Orders", icon: ShoppingCart, to: "/orders", adminOnly: true  },
+  { label: "Cart", icon: ShoppingCart, to: `/${userId}/cart`, userOnly: true},
+  { label: "Users", icon: Users, to: "/users", adminOnly: true },
+  { label: "Subscriptions", icon: CreditCard, to: "/subscriptions" , adminOnly: true },
   { label: "Settings", icon: Settings, to: "/settings"},
 ];
 
@@ -37,7 +39,11 @@ const navItems = [
         </div>
 
         <nav className="flex-1 px-3 space-y-1">
-          {navItems.map((item) => {
+          {navItems.filter(item => {
+  if (item.adminOnly && !isAdmin) return false; 
+  if (item.userOnly && isAdmin) return false;   
+  return true;                                  
+}).map((item) => {
             const active = location.pathname.startsWith(item.to);
             return (
               <Link
@@ -59,10 +65,10 @@ const navItems = [
         </nav>
 
         <div className="p-3 mt-auto">
-          <Link to="/login" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors">
+          <button onClick={logout} className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors">
             <LogOut className="w-4 h-4" />
             Sign Out
-          </Link>
+          </button>
         </div>
       </aside>
 

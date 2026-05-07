@@ -7,10 +7,12 @@ import { Label } from "../components/ui/Label";
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
  const [error,setError] = useState(null);
  const navigate = useNavigate()
+ const { login } = useAuth();
  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const API_URL = import.meta.env.VITE_API_URL;
@@ -19,9 +21,11 @@ export default function Login() {
     try{
      const response= await axios.post(`${API_URL}/api/auth/login`,{email,password});
      const {token,user} = response.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("userId", user._id);
-      console.log(user);
+      // localStorage.setItem("token", token);
+      // localStorage.setItem("userId", user._id);
+      // localStorage.setItem("isAdmin",user.isadmin);
+      // console.log(user);
+       login(token, user);
       navigate(`/${user._id}/dashboard`);
     }catch(err){
       if (err.response && err.response.status === 401) {
