@@ -1,14 +1,23 @@
-import multer from "multer"
-import path from "path"
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import multer from "multer";
 
-// Save files to "uploads/" folder
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/") // make sure folder exists
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname))
-  },
-})
+const getUpload = () => {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
 
-export const upload = multer({ storage })
+  const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+      folder: "products",
+      allowed_formats: ["jpg", "jpeg", "png", "webp"],
+    },
+  });
+
+  return multer({ storage });
+};
+
+export { cloudinary, getUpload };

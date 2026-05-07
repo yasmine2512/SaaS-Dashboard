@@ -26,7 +26,6 @@ const { id } = useParams();
     const product = {
       ...form,
       features: form.features.split("\n"),
-      image: URL.createObjectURL(form.image),
     }
     const data = new FormData()
 
