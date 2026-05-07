@@ -1,74 +1,7 @@
 import { useState } from "react";
 import DashboardLayout from "../components/Layout";
-import {  Menu} from "lucide-react";
+import { Menu} from "lucide-react";
 import { useCart } from "../context/CartContext";
-const mockCartItems = [
-  {
-    _id: "1",
-    product: {
-      _id: "p1",
-      name: "Wireless Noise-Cancelling Headphones",
-      description: "Premium audio experience with 30hr battery life",
-      price: "149.99",
-      category: "Electronics",
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
-      stock: 12,
-    },
-    quantity: 1,
-  },
-  {
-    _id: "2",
-    product: {
-      _id: "p2",
-      name: "Mechanical Keyboard TKL",
-      description: "Tactile switches with RGB backlight and aluminum frame",
-      price: "89.99",
-      category: "Peripherals",
-      image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=300&h=300&fit=crop",
-      stock: 5,
-    },
-    quantity: 2,
-  },
-  {
-    _id: "3",
-    product: {
-      _id: "p3",
-      name: "Ergonomic Mouse Pro",
-      description: "Vertical design for reduced wrist strain",
-      price: "59.99",
-      category: "Peripherals",
-      image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300&h=300&fit=crop",
-      stock: 8,
-    },
-    quantity: 1,
-  },
-  {
-    _id: "4",
-    product: {
-      _id: "p4",
-      name: "Wireless Noise-Cancelling Headphones",
-      description: "Premium audio experience with 30hr battery life",
-      price: "149.99",
-      category: "Electronics",
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
-      stock: 12,
-    },
-    quantity: 1,
-  },
-  {
-    _id: "5",
-    product: {
-      _id: "p5",
-      name: "Wireless Noise-Cancelling Headphones",
-      description: "Premium audio experience with 30hr battery life",
-      price: "149.99",
-      category: "Electronics",
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
-      stock: 12,
-    },
-    quantity: 1,
-  }
-];
  
 const SHIPPING_THRESHOLD = 100;
 const SHIPPING_COST = 9.99;
@@ -83,15 +16,6 @@ export default function CartPage() {
   const [removingId, setRemovingId] = useState(null);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
  
-  // const updateQuantity = (itemId, delta) => {
-  //   setCartItems((prev) =>
-  //     prev.map((item) =>
-  //       item._id === itemId
-  //         ? { ...item, quantity: Math.max(1, Math.min(item.product.stock, item.quantity + delta)) }
-  //         : item
-  //     )
-  //   );
-  // };
  const handleRemove = (itemId) => {
     setRemovingId(itemId);
     setTimeout(() => {
@@ -100,14 +24,6 @@ export default function CartPage() {
     }, 350);
   };
 
-  // const removeItem = (itemId) => {
-  //   setRemovingId(itemId);
-  //   setTimeout(() => {
-  //     setCartItems((prev) => prev.filter((i) => i._id !== itemId));
-  //     setRemovingId(null);
-  //   }, 350);
-  // };
- 
   const applyPromo = () => {
     if (promoCode.trim().toUpperCase() === "SAVE10") setPromoApplied(true);
   };
