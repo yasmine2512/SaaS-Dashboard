@@ -12,8 +12,8 @@ import {
 
 
 /** 
-   * @desc revenu,norders,nproducts,ncustomers,revenu in last 7 months(month),n ordersin week (day),3 best sellers products,stock alert,monthly recurring revenue (MRR),Show new signups
-   * @route  /api/dashboard/:id
+   * @desc revenu,norders,nproducts,ncustomers,revenu in last 7 months(month),n ordersin week (day),5 best sellers products,stock alert,monthly recurring revenue (MRR),top 5 customers,recent orders,Monthly Growth Rate
+   * @route  /api/dashboard/:organiztionid
    * @method GET
    * @access private
    */  
@@ -29,6 +29,8 @@ const newsignups = await User.countDocuments({
 
   }))
 
+
+  // for admin 
   /** 
    * @desc active subscriptions,monthly recuring,churn rate,avrg revenu user,top subscribers,plan distrbution
    * @route  /api/dashboard/:id

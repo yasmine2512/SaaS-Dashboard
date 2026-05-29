@@ -7,7 +7,7 @@ import dashboardRoutes from './Routes/dashboardRoutes.js';
 import ordersRoutes from './Routes/ordersRoutes.js';
 import productsRoutes from './Routes/productsRoutes.js';
 import subscriptionRoutes from './Routes/subscriptionRoutes.js';
-import usersRoutes from './Routes/usersRoutes.js';
+import customersRoutes from './Routes/customersRoutes.js';
 import connectDB from "./config/db.js"; 
 
 const app = express();
@@ -17,7 +17,7 @@ app.use("/uploads", express.static("uploads"));
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth",authRoutes);
-app.use("/api/users",usersRoutes);
+app.use("/api/customers",customersRoutes);
 app.use("/api/products",productsRoutes);
 app.use("/api/orders",ordersRoutes);
 app.use("/api/subscription",subscriptionRoutes);

@@ -1,7 +1,7 @@
 import DashboardLayout from "../components/Layout";
 import { TrendingUp, TrendingDown, DollarSign, Package, ShoppingCart, Users } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
-import { useParams } from "react-router-dom"
+import { useParams ,  useNavigate} from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
@@ -40,9 +40,10 @@ const recentOrders = [
 ];
 
 export default function Dashboard() {
- const { id } = useParams()
+  const { id } = useParams()
   const [profile, setProfile] = useState(null)
-   const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");

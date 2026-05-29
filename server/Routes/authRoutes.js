@@ -96,6 +96,15 @@ router.delete("/:id/all-users/:userId",verifyTokenAndAdmin,asyncHandler(async(re
 
 }))
 
+  /** 
+   * @desc get profile
+   * @route /api/auth/:id
+   * @method GET
+   * @access private
+   */  
+  router.get("/:id", verifyTokenAndAuthorization, (req, res) => {
+ res.json("Protected user data");
+});
 
 
 export default router; 

@@ -12,7 +12,7 @@ const router = express.Router();
 
 
 /** 
-   * @desc get all product
+   * @desc get all product , top selling broduct , revenu by product chart
    * @route /api/products/:id
    * @method GET
    * @access public
@@ -25,7 +25,7 @@ router.get("/:id",verifyTokenAndAuthorization,asyncHandler(async(req,res)=>{
 }))
 
 /** 
-   * @desc get product
+   * @desc get product ,its revenu ,unit sold, conversion rate,stock level 
    * @route /api/products/detail/:productid
    * @method GET
    * @access public

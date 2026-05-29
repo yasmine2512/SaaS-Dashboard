@@ -8,8 +8,8 @@ const router = express.Router();
 export default router; 
 
 /** 
-   * @desc show all orders 
-   * @route /api/orders/user/:id
+   * @desc show all orders ,total orders,pending orders,completed orders,canceled orders per day 7,orders by status,Average Order Value (AOV)
+   * @route /api/orders/:organisationid
    * @method GET
    * @access private
    */  
@@ -19,6 +19,8 @@ const userOrders = await Order.find({user : userId});
 return res.json(userOrders);
 
 }))
+
+
 
 /** 
    * @desc create an order
