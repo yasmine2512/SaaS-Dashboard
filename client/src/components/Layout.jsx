@@ -65,7 +65,7 @@ const navItems = [
         </nav>
 
         <div className="p-3 mt-auto">
-          <button onClick={logout} className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors">
+          <button onClick={logout} className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors hover:text-red-500">
             <LogOut className="w-4 h-4" />
             Sign Out
           </button>

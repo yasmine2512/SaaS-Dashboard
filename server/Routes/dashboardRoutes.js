@@ -18,7 +18,7 @@ import {
    * @access private
    */  
 
-router.get("/:id",verifyTokenAndAdmin,asyncHandler(async(req,res)=>{
+router.get("/:organizationId",verifyTokenAndAdmin,asyncHandler(async(req,res)=>{
 
 
  //Show new signups

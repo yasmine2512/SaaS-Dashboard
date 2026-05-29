@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, BarChart3, Shield, Zap, Globe, Users, CreditCard } from "lucide-react";
 import { Button } from "../components/ui/button";
-import bg from "../assets/image1.jpg"
+// import bg from "../assets/image1.jpg"
 import vd from "../assets/vid1.mp4"
 
 const features = [
